@@ -6,7 +6,7 @@ from airflow.operators.dummy_operator import DummyOperator
 
 args = {
     'owner': 'Kris',
-    'start_date': datetime.date(2020,1,25),
+    'start_date': datetime.datetime(2020,1,25),
 }
 
 with DAG(
