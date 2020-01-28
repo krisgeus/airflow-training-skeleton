@@ -1,7 +1,7 @@
 import datetime
 
 import airflow
-from airflow.operators.postgres_to_gcs import PostgresToGCSOperator
+from airflow.contrib.operators.postgres_to_gcs_operator import PostgresToGoogleCloudStorageOperator
 from airflow.operators.python_operator import ShortCircuitOperator
 from airflow.models import DAG
 
@@ -25,7 +25,7 @@ with DAG(
         provide_context=True,
     )
 
-    pgsl_to_gcs = PostgresToGCSOperator(
+    pgsl_to_gcs = PostgresToGoogleCloudStorageOperator(
         task_id="postgres_to_gcs",
         sql="SELECT * FROM land_registry_price_paid_uk WHERE transfer_date = '{{ ds }}'",
         bucket="airflow-training-data-land-registry-krisgeus",
