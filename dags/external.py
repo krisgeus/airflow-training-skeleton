@@ -10,8 +10,8 @@ args = {
     "start_date": datetime.datetime(2019,11,24)
 }
 
-def check_date(execution_date, **context): 
-    return execution_date <= datetime.datetime(2019,11,28)  
+def check_date(execution_date, **context):
+    return execution_date <= datetime.datetime(2019,11,28)
 
 with DAG(
     dag_id="exercise-external",
@@ -19,9 +19,9 @@ with DAG(
     schedule_interval="@daily"
 ) as dag:
 
-    check_date = ShortCircuitOperator( 
+    check_date = ShortCircuitOperator(
         task_id="check_if_before_end_of_last_year",
-        python_callable=check_date, 
+        python_callable=check_date,
         provide_context=True,
     )
 
