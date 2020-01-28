@@ -7,13 +7,12 @@ from airflow.operators.dummy_operator import DummyOperator
 args = {
     'owner': 'Kris',
     'start_date': datetime.datetime(2020,1,25),
-    'schedule_interval': '@daily',
 }
 
 with DAG(
     dag_id='exercise-first-dag',
     default_args=args,
-    schedule_interval=None
+    schedule_interval='@daily',
 ) as dag:
 
     task1 = DummyOperator(task_id="task1")
