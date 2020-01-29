@@ -33,7 +33,6 @@ def _download_rocket_launches(ds, tomorrow_ds, **context):
 def _print_stats(ds, **context):
     with open(f"/tmp/rocket_launches/ds={ds}/launches.json") as f:
         data = json.load(f)
-        print(f"data is {data}")
         rockets_launched = [launch["name"] for launch in data["launches"]]
         rockets_str = ""
 
