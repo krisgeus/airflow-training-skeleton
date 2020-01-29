@@ -24,19 +24,24 @@ def _download_rocket_launches(ds, tomorrow_ds, **context):
     result_path = f"/tmp/rocket_launches/ds={ds}"
     pathlib.Path(result_path).mkdir(parents=True, exist_ok=True)
     response = requests.get(query)
+    print(f"response was {response}")
 
     with open(posixpath.join(result_path, "launches.json"), "w") as f:
+        print(f"Writing to file {f.name}")
         f.write(response.text)
 
 def _print_stats(ds, **context):
     with open(f"/tmp/rocket_launches/ds={ds}/launches.json") as f:
         data = json.load(f)
+        print(f"data is {data}")
         rockets_launched = [launch["name"] for launch in data["launches"]]
         rockets_str = ""
 
         if rockets_launched:
             rockets_str = f" ({' & '.join(rockets_launched)})"
             print(f"{len(rockets_launched)} rocket launch(es) on {ds}{rockets_str}.")
+        else:
+            print(f"No rockets found in {f.name}")
 
 download_rocket_launches = PythonOperator(
     task_id="download_rocket_launches",
