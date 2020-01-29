@@ -21,7 +21,7 @@ dag = DAG(
 
 def _download_rocket_launches(ds, tomorrow_ds, **context):
     query = f"https://launchlibrary.net/1.4/launch?startdate={ds}&enddate={tomorrow_ds}"
-    result_path = f"/data/rocket_launches/ds={ds}"
+    result_path = f"/tmp/rocket_launches/ds={ds}"
     pathlib.Path(result_path).mkdir(parents=True, exist_ok=True)
     response = requests.get(query)
 
@@ -29,7 +29,7 @@ def _download_rocket_launches(ds, tomorrow_ds, **context):
         f.write(response.text)
 
 def _print_stats(ds, **context):
-    with open(f"/data/rocket_launches/ds={ds}/launches.json") as f:
+    with open(f"/tmp/rocket_launches/ds={ds}/launches.json") as f:
         data = json.load(f)
         rockets_launched = [launch["name"] for launch in data["launches"]]
         rockets_str = ""
