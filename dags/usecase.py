@@ -52,10 +52,10 @@ with DAG(
     http_to_gcs = HttpToGcsOperator(
         task_id="get_currency_" + currency,
         method="GET",
-        endpoint=f"/history?start_at={{ ds }}&end_at={{ ds_tomorrow }}&base=GBP&symbols={currency}",
+        endpoint=f"/history?start_at={{{{ ds }}}}&end_at={{{{ ds_tomorrow }}}}&base=GBP&symbols={currency}",
         http_conn_id="currency-http",
         gcs_conn_id="google_cloud_storage_default",
-        gcs_path=f"usecase/currency/{{ ds }}-{currency}.json",
+        gcs_path=f"usecase/currency/{{{{ ds }}}}-{currency}.json",
         gcs_bucket=f"{bucket_name}",
     )
 
@@ -73,8 +73,8 @@ with DAG(
         cluster_name="analyse-pricing-{{ ds }}",
         arguments=[
             f"gs://{bucket_name}/usecase/land_registry_price_paid_uk/*/*.json",
-            f"gs://{bucket_name}/usecase/currency/{{ ds }}-{currency}.json",
-            f"gs://{bucket_name}/usecase/results/{{ ds }}/",
+            f"gs://{bucket_name}/usecase/currency/{{{{ ds }}}}-{currency}.json",
+            f"gs://{bucket_name}/usecase/results/{{{{ ds }}}}/",
         ],
     )
 
