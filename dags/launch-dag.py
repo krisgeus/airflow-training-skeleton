@@ -45,11 +45,11 @@ download_rocket_launches = PythonOperator(
     dag=dag
 )
 
- print_stats = PythonOperator(
+print_stats = PythonOperator(
     task_id="print_stats",
     python_callable=_print_stats,
     provide_context=True,
     dag=dag
 )
 
-  download_rocket_launches >> print_stats
+download_rocket_launches >> print_stats
