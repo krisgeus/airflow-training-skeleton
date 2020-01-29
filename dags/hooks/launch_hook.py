@@ -38,7 +38,7 @@ class LaunchHook(BaseHook):
 
         session = self.get_conn()
         response = session.get(
-            "{self.base_url}/{self._api_version}/launch",
+            f"{self.base_url}/{self._api_version}/launch",
             params={"start_date": start_date, "end_date": end_date},
         )
         response.raise_for_status()
