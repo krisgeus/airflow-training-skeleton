@@ -76,7 +76,7 @@ with DAG(
             f"gs://{bucket_name}/usecase/currency/{{{{ ds }}}}-{currency}.json",
             f"gs://{bucket_name}/usecase/results/{{{{ ds }}}}/",
             currency,
-            "{{ ds }}"
+            "{{ tomorrow_ds }}"
         ],
     )
 
