@@ -1,10 +1,10 @@
 import json
 import pathlib
- import posixpath  
+import posixpath
 import airflow
- import requests
+import requests
 
- from airflow.models import DAG
+from airflow.models import DAG
 from airflow.operators.python_operator import PythonOperator
 
 args = {
