@@ -52,7 +52,7 @@ with DAG(
     http_to_gcs = HttpToGcsOperator(
         task_id="get_currency_" + currency,
         method="GET",
-        endpoint=f"/history?start_at={{{{ ds }}}}&end_at={{{{ ds_tomorrow }}}}&base=GBP&symbols={currency}",
+        endpoint=f"/history?start_at={{{{ ds }}}}&end_at={{{{ tomorrow_ds }}}}&base=GBP&symbols={currency}",
         http_conn_id="currency-http",
         gcs_conn_id="google_cloud_storage_default",
         gcs_path=f"usecase/currency/{{{{ ds }}}}-{currency}.json",
