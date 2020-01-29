@@ -12,14 +12,14 @@ args = {
     "start_date": airflow.utils.dates.days_ago(10)
 }
 
-  dag = DAG(
+dag = DAG(
     dag_id="download_rocket_launches",
     default_args=args,
     description="DAG downloading rocket launches from Launch Library.",
     schedule_interval="0 0 * * *"
 )
 
-   def _download_rocket_launches(ds, tomorrow_ds, **context):
+def _download_rocket_launches(ds, tomorrow_ds, **context):
     query = f"https://launchlibrary.net/1.4/launch?startdate={ds}&enddate={tomorrow_ds}"
     result_path = f"/data/rocket_launches/ds={ds}"
     pathlib.Path(result_path).mkdir(parents=True, exist_ok=True)
