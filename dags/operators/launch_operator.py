@@ -41,8 +41,19 @@ class LaunchToGcsOperator(BaseOperator):
             google_cloud_storage_conn_id=self._gcp_conn_id
         )
 
-        gcs_hook.upload(
-            bucket=self._output_bucket,
-            object=self._output_path,
-            data=result
-        )
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = os.path.join(tmp_dir, "result.json")
+            with open(tmp_path, "w") as file_:
+                json.dump(result, file_)
+
+            gcs_hook.upload(
+                bucket=self._output_bucket,
+                object=self._output_path,
+                filename=tmp_path
+            )
+
+        # gcs_hook.upload(
+        #     bucket=self._output_bucket,
+        #     object=self._output_path,
+        #     data=result
+        # )
